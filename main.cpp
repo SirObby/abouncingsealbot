@@ -44,7 +44,11 @@ void save() {
 
 int main()
 {
-    dpp::cluster bot("ODgwMzM3OTE0NTI4MTQ1NDM4.YSc0kg.7Db95lQQu9Ddzl72CPpa3Wa3ut8");
+    ifstream in("./config.json");
+    json config;
+	in >> config;
+
+    dpp::cluster bot(config["token"]);
     
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "Logged in as " << bot.me.username << "!\n";
