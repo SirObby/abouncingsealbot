@@ -23,6 +23,12 @@ namespace commands
             if(cmd_data.name == "info") {
                 execute_info_cmd(event, cmd_data);
             }
+            if(cmd_data.name == "bounce") {
+                execute_bounce_cmd(event, cmd_data);
+            }
+            if(cmd_data.name == "eval") {
+                execute_eval_cmd(event, cmd_data);
+            }
 
         }
     }
