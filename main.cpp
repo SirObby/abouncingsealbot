@@ -12,6 +12,7 @@
 #include "cmds/info.hpp"
 #include "cmds/user-opt.hpp"
 #include "cmds/guild-opt.hpp"
+#include "cmds/ping.hpp"
 
 // Constants or Other Top-Level stuff
 using json = nlohmann::json;
@@ -46,6 +47,7 @@ int main()
             if(cmd_data.name == "info") info_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-opt") user_opt_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-opt") guild_opt_cmd::execute(event, cmd_data);
+            if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
 
         }
     });
