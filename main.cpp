@@ -22,14 +22,16 @@ int main()
     std::ifstream configfile("./config.json");
     configfile >> configdocument;
 
+    dpp::cluster bot(configdocument["token"], dpp::i_default_intents, 1);
+    
     bot.on_ready([&bot](const dpp::ready_t & event) {
         std::cout << "Logged in as " << bot.me.username << "!\n";
         bot.set_presence(dpp::presence(dpp::ps_online, dpp::at_listening, "your commands."));
 
+        
+
     });
 
-    dpp::cluster bot(configdocument["token"], dpp::i_default_intents, 1);
-    /* The interaction create event is fired when someone issues your commands */
     bot.on_interaction_create([&bot](const dpp::interaction_create_t & event) {
         if (event.command.type == dpp::it_application_command) {
             dpp::command_interaction cmd_data = std::get<dpp::command_interaction>(event.command.data);
@@ -37,7 +39,10 @@ int main()
             checkConfig(event.command.usr.id);
 
             if(cmd_data.name == "bounce") bounce_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "eval") eval_cmd::execute(event, cmd_data);
+            if(cmd_data.name == "eval") if(eval_cmd::execute(event, cmd_data)) {
+                std::string code = std::get<std::string>(event.get_parameter("code"));
+                bot.message_create(dpp::message(event.command.channel_id, fmt::format("{}", code)));
+            } // Sorry about messy code for some reason Idk how to pass bot into eval. 
             if(cmd_data.name == "info") info_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-opt") user_opt_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-opt") guild_opt_cmd::execute(event, cmd_data);

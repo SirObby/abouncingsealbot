@@ -40,4 +40,10 @@
                 ;
         //bot.global_command_create(uoptcmd);
 
+        dpp::slashcommand pingcmd;
+            pingcmd.set_name("ping")
+            .set_description("Check the bot's latency.")
+            .set_application_id(bot.me.id);
+        bot.global_command_create(pingcmd);
+
         */
