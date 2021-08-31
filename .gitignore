@@ -1,4 +1,5 @@
 
-config.json
 bot
 build.sh
+config.json
+*.json
