@@ -6,8 +6,12 @@
 namespace ping_cmd
 {
     void execute(const dpp::interaction_create_t & event, dpp::command_interaction cmd_data) {
-        int ping = rand() % 360 + 40; // Random numer from 40 to 144 
+        int ping = event.from->websocket_ping * 1000; 
+        dpp::message m;
+        m.set_flags(dpp::m_ephemeral);
+        std::string str = "Pinged: " + std::to_string(ping) + "ms";
+        m.set_content(str);
 
-        event.reply(dpp::ir_channel_message_with_source, fmt::format("Pinged: {}ms", ping));
+       event.reply(dpp::ir_channel_message_with_source, m);
     }
 }
