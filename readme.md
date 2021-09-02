@@ -1,11 +1,10 @@
-***Welcome to A Bouncing Seal Bot github page***
-<br>If you do not know what A Bouncing Seal bot does and what it is see the following video.
-<br>https://www.youtube.com/watch?v=xDg_T0WLolQ
-<br>
-<br>
-***Why does this exist?***
-<br>Because it just does.
-<br>
-<br>
-***HAIL BOUNCING SEAL***
-<br>***HAIL BOUNCING SEAL***
+## A Bouncing Seal
+It's a fun bot with leveling and funny bouncing seal videos.
+
+### Information
+[Invite](https://discord.com/oauth2/authorize?client_id=880337914528145438&permissions=3197952&scope=bot%20applications.commands)\
+[Support Server](https://discord.gg/kYGUzJAYHX)
+
+### How to Contribute
+1. Make a PR.
+2. DM me in Discord personally. (`Sir Obsidian#2640`)
