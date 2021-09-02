@@ -39,3 +39,12 @@
         f.close();
 
     }
+
+    nlohmann::json getConf(std::string id) {
+
+        nlohmann::json x;
+        std::ifstream y(fmt::format("./configs/{}.json", id));
+        y >> x;
+
+        return x;
+    }

@@ -22,7 +22,7 @@ namespace user_conf_cmd
 
         //std::cout << configdocument["enabled"];
 
-        configdocument["enabled"] = value;
+        configdocument["leveling"]["enabled"] = value;
         std::ofstream o(fmt::format("./configs/{}.json", id));
 	    o << std::setw(4) << configdocument << std::endl;
         o.close();

@@ -10,7 +10,7 @@ namespace guild_conf_cmd
         std::string setting = std::get<std::string>(event.get_parameter("setting"));
         bool value = std::get<bool>(event.get_parameter("value"));
 
-dpp::channel* ch = dpp::find_channel(event.command.channel_id);
+        dpp::channel* ch = dpp::find_channel(event.command.channel_id);
         //std::cout << std::to_string(ch->get_user_permissions(&event.command.usr)) << std::endl;
         if(ch && (ch->get_user_permissions(&event.command.usr) & dpp::p_administrator)) {  
 
@@ -26,7 +26,8 @@ dpp::channel* ch = dpp::find_channel(event.command.channel_id);
 
         //std::cout << configdocument["enabled"];
 
-        configdocument["enabled"] = value;
+        configdocument["leveling"]["enabled"] = value;
+
         std::ofstream o(fmt::format("./configs/{}.json", id));
 	    o << std::setw(4) << configdocument << std::endl;
         o.close();
