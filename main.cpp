@@ -81,7 +81,7 @@ int main()
 
     bot.on_message_create([&bot](const dpp::message_create_t & event) {
     
-        checkConfig(event.command.usr.id);
+        checkConfig(event.msg->member.user_id);
 
         std::string id = std::to_string(event.msg->guild_id);  
         std::string id2 = std::to_string(event.msg->member.user_id);
