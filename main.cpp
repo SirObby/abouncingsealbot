@@ -7,13 +7,12 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <map>
 // Project Includes
 #include "configs.hpp"
 #include "cmds/bounce.hpp"
 #include "cmds/eval.hpp"
 #include "cmds/info.hpp"
-#include "cmds/user-opt.hpp"
-#include "cmds/guild-opt.hpp"
 #include "cmds/ping.hpp"
 #include "cmds/user-conf.hpp"
 #include "cmds/guild-conf.hpp"
@@ -21,6 +20,18 @@
 // Constants or Other Top-Level stuff
 using json = nlohmann::json;
 
+void print_map( const dpp::slashcommand_map &m )
+{
+    for ( const auto &[ key, value ] : m )
+    {
+        std::cout << key << " = " << value.name.c_str() << "; ";
+        std::cout << "\n";
+    }
+    //std::cout << "\n";
+}
+/*
+@brief sus
+*/
 int main()
 {   
     json configdocument;
@@ -33,13 +44,13 @@ int main()
         std::cout << "Logged in as " << bot.me.username << "!" << std::endl;
         bot.set_presence(dpp::presence(dpp::ps_online, dpp::at_listening, "your commands."));
 
-        // Create commands.
-        
-        bot.global_commands_get(dpp::command_completion_event_t callback) {
-            
-        }
-        //bot.global_command_delete()
+        // Create commands.   
 
+        // Deleting commands.
+
+    bot.global_commands_get( [ & ]( const dpp::confirmation_callback_t &callback )
+                             { print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";} );
+    //bot.global_command_delete(880738145849712680);
     });
 
     bot.on_interaction_create([&bot](const dpp::interaction_create_t & event) {
@@ -50,8 +61,6 @@ int main()
 
             if(cmd_data.name == "bounce") bounce_cmd::execute(event, cmd_data);
             if(cmd_data.name == "info") info_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "user-opt") user_opt_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "guild-opt") guild_opt_cmd::execute(event, cmd_data);
             if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
