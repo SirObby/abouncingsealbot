@@ -45,6 +45,7 @@
         nlohmann::json x;
         std::ifstream y(fmt::format("./configs/{}.json", id));
         y >> x;
-
+        y.close();
+        
         return x;
     }

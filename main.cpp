@@ -38,6 +38,7 @@ int main()
     json configdocument;
     std::ifstream configfile("./config.json");
     configfile >> configdocument;
+    configfile.close();
 
     dpp::cluster bot(configdocument["token"], dpp::i_default_intents |  dpp::i_guild_members, 1);
     
@@ -80,6 +81,8 @@ int main()
 
     bot.on_message_create([&bot](const dpp::message_create_t & event) {
     
+        checkConfig(event.command.usr.id);
+
         std::string id = std::to_string(event.msg->guild_id);  
         std::string id2 = std::to_string(event.msg->member.user_id);
 
