@@ -10,8 +10,8 @@ It's a fun bot with leveling and funny bouncing seal videos.
 2. DM me in Discord personally. (`Sir Obsidian#2640`)
 
 ### FAQ
-**Q:** Why does the bot exist?
+**Q:** Why does the bot exist?\
 **A:** Because it just does.
 
-**Q:** Is this a good bot?
+**Q:** Is this a good bot?\
 **A:** I think you already know the answer, yes.
