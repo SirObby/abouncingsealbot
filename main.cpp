@@ -41,7 +41,7 @@ int main()
     configfile.close();
 
     dpp::cluster bot(configdocument["token"], dpp::i_default_intents |  dpp::i_guild_members, 1);
-    
+
     bot.on_ready([&bot](const dpp::ready_t & event) {
         std::cout << "Logged in as " << bot.me.username << "!" << std::endl;
         bot.set_presence(dpp::presence(dpp::ps_online, dpp::at_listening, "your commands."));
@@ -53,6 +53,19 @@ int main()
         bot.global_commands_get( [ & ]( const dpp::confirmation_callback_t &callback )
                              { print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";} );
         //bot.global_command_delete(880738145849712680);
+
+        bot.current_user_get_guilds( [ & ]( const dpp::confirmation_callback_t &callback )
+        {
+            const auto &guilds = std::get< dpp::guild_map >( callback.value );
+            unsigned int gsize = guilds.size();
+            std::printf( "> Guild Count: %u\n", gsize );
+            for ( const auto &[ guild_snowflake, guild ] : guilds )
+            {
+                std::printf( "> Guild Name: %s\n", guild.name.c_str() );
+            }
+
+        } );
+
     });
 
     bot.on_interaction_create([&bot](const dpp::interaction_create_t & event) {
@@ -66,16 +79,8 @@ int main()
             if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
-            
-            // Guild Specific / User Specific Commands
-            if(cmd_data.name == "eval") if(eval_cmd::execute(event, cmd_data)) {
-                std::string code = std::get<std::string>(event.get_parameter("code"));
-                dpp::message m;
-                m.set_flags(dpp::m_ephemeral);
-                m.set_content("Command has been evaluated!");
-                event.reply(dpp::ir_channel_message_with_source, m);
-                bot.message_create(dpp::message(event.command.channel_id, fmt::format("{}", code)));
-            } // Sorry about messy code for some reason Idk how to pass bot into eval. 
+            if(cmd_data.name == "eval") eval_cmd::execute(event, cmd_data);
+        
         }
     });
 
