@@ -20,8 +20,7 @@
         f.close();
     }
 
-    void checkConfig(const long unsigned int id2) {
-        std::string id = std::to_string(id2);
+    void checkConfig(std::string id) {
 
         std::ifstream f;
         f.open(fmt::format("./configs/{}.json", id));

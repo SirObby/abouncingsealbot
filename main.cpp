@@ -72,10 +72,10 @@ int main()
         if (event.command.type == dpp::it_application_command) {
             dpp::command_interaction cmd_data = std::get<dpp::command_interaction>(event.command.data);
             checkConfigs(event);
-            checkConfig(event.command.usr.id);
+            checkConfig(std::to_string(event.command.usr.id));
 
             if(cmd_data.name == "bounce") bounce_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "info") info_cmd::execute(event, cmd_data);
+            if(cmd_data.name == "info") info_cmd::execute(event, cmd_data, &bot);
             if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
@@ -85,8 +85,8 @@ int main()
     });
 
     bot.on_message_create([&bot](const dpp::message_create_t & event) {
-    
-        checkConfig(event.msg->member.user_id);
+        //int integer = event.msg->member.user_id;
+        checkConfig(to_string(event.msg->member.user_id));
 
         std::string id = std::to_string(event.msg->guild_id);  
         std::string id2 = std::to_string(event.msg->member.user_id);
