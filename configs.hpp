@@ -2,6 +2,8 @@
 #include <dpp/nlohmann/json.hpp>
 #include <iomanip>
 #include <sstream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
     void checkConfigs(const dpp::interaction_create_t& event) {
         std::ifstream f;
@@ -36,6 +38,22 @@
 
         }
         f.close();
+
+        std::string path = "./configs/";
+        for (const auto & entry : fs::directory_iterator(path)) {
+        //std::cout << entry.path() << std::endl;
+        if(entry.is_regular_file()) {
+            std::string s = entry.path().string();
+            s = s.substr(10);
+            if(s != "placeholder.txt") {
+                if(s.length() == 20) {
+                    const char* fileC = entry.path().c_str();
+                    std::remove(fileC);
+                }  
+            }
+        }
+
+        }
 
     }
 

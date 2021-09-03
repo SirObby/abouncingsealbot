@@ -15,10 +15,10 @@ dpp::slashcommand bouncecmd;
         
         dpp::slashcommand evalcmd;
         evalcmd.set_name("eval")
-            .set_description("Information about this bot.")
+            .set_description("Evaluate code from within the bot.")
             .set_application_id(bot.me.id)
             //.add_permission(dpp::command_permission(dpp::command_permission_type::cpt_user))
-            .add_option(dpp::command_option(dpp::co_string, "code", "The code to evaluate. (Sir Obsidian#2640 only)", false)
+            .add_option(dpp::command_option(dpp::co_string, "code", "The code to evaluate.", true)
                 );
         bot.global_command_create(evalcmd);
 

@@ -112,11 +112,11 @@ int main()
 
     });
     
-    bot.on_log([](const dpp::log_t & event) {
+    /*bot.on_log([](const dpp::log_t & event) {
         if (event.severity > dpp::ll_trace) {
             std::cout << event.message << "\n";
-        }
-    });
+        } I decided this is unnecessary.
+    });*/ 
 
     bot.start(false);
     return 0;
