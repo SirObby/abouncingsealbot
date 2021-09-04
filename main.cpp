@@ -10,6 +10,7 @@
 #include <map>
 // Project Includes
 #include "configs.hpp"
+#include "versions.hpp"
 #include "cmds/bounce.hpp"
 #include "cmds/eval.hpp"
 #include "cmds/info.hpp"
@@ -35,6 +36,7 @@ void print_map( const dpp::slashcommand_map &m )
 */
 int main()
 {   
+
     json configdocument;
     std::ifstream configfile("./config.json");
     configfile >> configdocument;
@@ -65,6 +67,14 @@ int main()
             }
 
         } );
+
+        // Creating version.
+
+        OB::Version v;
+        v.setVersion(1, 0, 1, "d");
+        v.setName("The Version Update");
+        v.setCommit("Unknown"); // This is updated AFTER pushed into Github.
+        cout << v.getText();
 
     });
 
