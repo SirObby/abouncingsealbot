@@ -54,7 +54,7 @@ int main()
 
         bot.global_commands_get( [ & ]( const dpp::confirmation_callback_t &callback )
                              { print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";} );
-        //bot.global_command_delete(880738145849712680);
+        //bot.global_command_delete(880716369656696873);
 
         bot.current_user_get_guilds( [ & ]( const dpp::confirmation_callback_t &callback )
         {
@@ -85,7 +85,6 @@ int main()
             if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "eval") eval_cmd::execute(event, cmd_data);
         
         }
     });
