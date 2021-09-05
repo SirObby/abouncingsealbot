@@ -1,3 +1,5 @@
+#pragma once
+
 #include <dpp/dpp.h>
 #include <dpp/nlohmann/json.hpp>
 #include <iomanip>
@@ -46,7 +48,7 @@ namespace fs = std::filesystem;
             std::string s = entry.path().string();
             s = s.substr(10);
             if(s != "placeholder.txt") {
-                if(s.length() == 20) {
+                if(s.length() == 20) { // For some odd reason when using C++20 This has to be 19.
                     const char* fileC = entry.path().c_str();
                     std::remove(fileC);
                 }  

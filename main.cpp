@@ -68,13 +68,9 @@ int main()
 
         } );
 
-        // Creating version.
+        // Creating version. (Moved into versions.hpp)
 
-        OB::Version v;
-        v.setVersion(1, 0, 1, "d");
-        v.setName("The Version Update");
-        v.setCommit("Unknown"); // This is updated AFTER pushed into Github.
-        cout << v.getText();
+        cout << OB::getV().getText();
 
     });
 

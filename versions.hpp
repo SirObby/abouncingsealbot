@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <dpp/fmt/format.h>
 
@@ -52,5 +54,14 @@ namespace OB {
             return x;
         }
     };
+
+    Version getV () {
+        Version v;
+        v.setVersion(1, 0, 1, "e");
+        v.setName("The /info Update.");
+        v.setCommit("Unknown"); // This is updated AFTER pushed into Github.
+
+        return v;
+    }
 
 }
