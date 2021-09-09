@@ -69,4 +69,17 @@ dpp::slashcommand bouncecmd;
             .add_option(dpp::command_option(dpp::co_boolean, "value", "Value to set to.", true));
         bot.global_command_create(userconfcmd);
 
+        dpp::slashcommand levelingcmd;
+
+        levelingcmd.set_name("leveling")
+            .set_description("Commands related to A Bouncing Seal's leveling.")
+            .set_application_id(bot.me.id)
+            .add_option(
+                dpp::command_option(dpp::co_string, "action", "What do you want to do leveling-wise?", true)
+                    .add_choice(dpp::command_option_choice("rank", std::string("rank")))
+                    .add_choice(dpp::command_option_choice("leaderboard", std::string("leaderboard")))
+            )
+            ;
+
+        bot.global_command_create(levelingcmd);
         */

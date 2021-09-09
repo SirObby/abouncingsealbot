@@ -12,11 +12,11 @@
 #include "configs.hpp"
 #include "versions.hpp"
 #include "cmds/bounce.hpp"
-#include "cmds/eval.hpp"
 #include "cmds/info.hpp"
 #include "cmds/ping.hpp"
 #include "cmds/user-conf.hpp"
 #include "cmds/guild-conf.hpp"
+#include "cmds/leveling.hpp"
 
 // Constants or Other Top-Level stuff
 using json = nlohmann::json;
@@ -48,7 +48,8 @@ int main()
         std::cout << "Logged in as " << bot.me.username << "!" << std::endl;
         bot.set_presence(dpp::presence(dpp::ps_online, dpp::at_listening, "your commands."));
 
-        // Create commands.   
+        // Create commands.  
+
 
         // Deleting commands.
 
@@ -85,6 +86,7 @@ int main()
             if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
             if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
             if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
+            if(cmd_data.name == "leveling") leveling_cmd::execute(event, cmd_data);
         
         }
     });
@@ -120,8 +122,8 @@ int main()
     /*bot.on_log([](const dpp::log_t & event) {
         if (event.severity > dpp::ll_trace) {
             std::cout << event.message << "\n";
-        } I decided this is unnecessary.
-    });*/ 
+        } //I decided this is unnecessary.
+    });*/
 
     bot.start(false);
     return 0;

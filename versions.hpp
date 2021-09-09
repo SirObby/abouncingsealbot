@@ -57,9 +57,9 @@ namespace OB {
 
     Version getV () {
         Version v;
-        v.setVersion(1, 0, 1, "e");
-        v.setName("The /info Update.");
-        v.setCommit("b3f88e7"); // This is updated AFTER pushed into Github.
+        v.setVersion(1, 0, 2, "a-pre");
+        v.setName("The Major Update Pre-release");
+        v.setCommit("Unknown"); // This is updated AFTER pushed into Github.
 
         return v;
     }
