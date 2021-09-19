@@ -1,6 +1,4 @@
 #pragma once
-#if !defined(VERSIONS_HPP)
-#define VERSIONS_HPP
 
 #include <iostream>
 #include <dpp/fmt/format.h>
@@ -47,7 +45,3 @@ namespace OB {
     Version getV ();
 
 }
-
-
-
-#endif // MACRO

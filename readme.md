@@ -11,7 +11,7 @@ Dependencies:
 2. G++ (bro idk just `sudo apt-get install g++`)
 3. Linux (Untested on Windows)
 4. CMake\
-Steps:\
+Steps:
 1. `git clone --recursive https://github.com/SirObby/abouncingsealbot.git`
 2. Change `src/config.example.json` to `src/config.json` and add token.
 3. Run commands below in order. (Or you can use `build.sh`)

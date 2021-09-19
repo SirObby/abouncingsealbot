@@ -11,6 +11,7 @@
 // Project Includes
 #include "configs.hpp"
 #include "versions.hpp"
+#include "commandhandler.hpp"
 #include "cmds/bounce.hpp"
 #include "cmds/info.hpp"
 #include "cmds/ping.hpp"
@@ -48,13 +49,18 @@ int main()
         std::cout << "Logged in as " << bot.me.username << "!" << std::endl;
         bot.set_presence(dpp::presence(dpp::ps_online, dpp::at_listening, "your commands."));
 
-        // Create commands.  
-
-
         // Deleting commands.
 
         bot.global_commands_get( [ & ]( const dpp::confirmation_callback_t &callback )
-                             { /*print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";0*/} );
+        { 
+            std::vector<dpp::slashcommand> missing = getMissingCommands(std::get< dpp::slashcommand_map >( callback.value ));
+
+            for (size_t i = 0; i < missing.size(); i++)
+            {
+                bot.global_command_create(missing[i]);
+            }
+            
+        } );
         //bot.global_command_delete(880716369656696873);
 
         bot.current_user_get_guilds( [ & ]( const dpp::confirmation_callback_t &callback )

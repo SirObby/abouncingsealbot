@@ -1,6 +1,4 @@
 #pragma once
-#if !defined(CONFIGS_HPP)
-#define CONFIGS_HPP
 
 #include <dpp/dpp.h>
 #include <dpp/nlohmann/json.hpp>
@@ -18,5 +16,3 @@ namespace OB_CONF {
 
     nlohmann::json getConf(std::string id);
 }
-
-#endif // MACRO

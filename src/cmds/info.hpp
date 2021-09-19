@@ -1,6 +1,4 @@
 #pragma once
-#if !defined(INFO_HPP)
-#define INFO_HPP
 
 #include <dpp/dpp.h>
 #include <dpp/nlohmann/json.hpp>
@@ -9,5 +7,3 @@
 #include "../versions.hpp"
 
 void _info_execute(const dpp::interaction_create_t & event, dpp::command_interaction cmd_data, dpp::cluster* bot);
-
-#endif // INFO_HPP
