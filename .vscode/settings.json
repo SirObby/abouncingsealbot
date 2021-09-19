@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.spwn": "spwn",
+        "xstring": "cpp"
+    }
+}
