@@ -6,10 +6,23 @@ It's a fun bot with leveling and funny bouncing seal videos.
 [Support Server](https://discord.gg/kYGUzJAYHX)
 
 ### How to run locally
-1. You need DPP, follow their installation instructions. (This bot is designed for the Linux operating system using G++);
-2. git clone this.
-3. Make a file in the root directory of the bot caleld config.json with this: `{ "token": "<INSERT TOKEN HERE>"}`
-4. Run g++ -std=c++17 *.cpp -o bot -ldpp
+Dependencies:
+1. zlib and openssl (D++ Dependencies)
+2. G++ (bro idk just `sudo apt-get install g++`)
+3. Linux (Untested on Windows)
+4. CMake
+Steps: 
+1. `git clone --recursive https://github.com/SirObby/abouncingsealbot.git`
+2. Change `src/config.example.json` to `src/config.json` and add token.
+3. Run commands below in order. (Or you can use `build.sh`)
+```
+mkdir build
+cd build
+cmake ..
+cd ..
+cmake --build build
+```
+3. Move `discord-bot` in `/build/` directory to `/src/` (Automated by `build.sh`)
 
 ### How to Contribute
 1. Make a PR.
@@ -21,3 +34,6 @@ It's a fun bot with leveling and funny bouncing seal videos.
 
 **Q:** Is this a good bot?\
 **A:** I think you already know the answer, yes.
+
+**Q.** Wha.. How?
+**A.** Wha how what? The bot works as intended idk what u mean, you saying how this works? It works by working bro **it just works** as Todd Howard would put it.

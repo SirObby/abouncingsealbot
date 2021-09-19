@@ -1,11 +1,16 @@
 #pragma once
+#if !defined(CONFIGS_HPP)
+#define CONFIGS_HPP
 
 #include <dpp/dpp.h>
 #include <dpp/nlohmann/json.hpp>
+#include <dpp/fmt/format.h>
 #include <iomanip>
 #include <sstream>
 #include <filesystem>
 namespace fs = std::filesystem;
+
+namespace OB_CONF {
 
     void checkConfigs(const dpp::interaction_create_t& event) {
         std::ifstream f;
@@ -19,7 +24,6 @@ namespace fs = std::filesystem;
             configfile.open(fmt::format("./configs/{}.json", event.command.guild_id));
             configfile << str;
             configfile.close();
-
         }
         f.close();
     }
@@ -68,3 +72,6 @@ namespace fs = std::filesystem;
         
         return x;
     }
+}
+
+#endif // MACRO

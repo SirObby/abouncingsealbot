@@ -1,4 +1,6 @@
 #pragma once
+#if !defined(VERSIONS_HPP)
+#define VERSIONS_HPP
 
 #include <iostream>
 #include <dpp/fmt/format.h>
@@ -57,11 +59,15 @@ namespace OB {
 
     Version getV () {
         Version v;
-        v.setVersion(1, 0, 2, "a-pre");
-        v.setName("The Major Update Pre-release");
+        v.setVersion(1, 0, 2, "a");
+        v.setName("The Major Update");
         v.setCommit("Unknown"); // This is updated AFTER pushed into Github.
 
         return v;
     }
 
 }
+
+
+
+#endif // MACRO

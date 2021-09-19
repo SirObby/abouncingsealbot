@@ -1,5 +1,4 @@
-
-bot
-build.sh
-config.json
-*.json
+/build/
+/src/configs/*.json
+/src/discord-bot
+/src/config.json

@@ -54,7 +54,7 @@ int main()
         // Deleting commands.
 
         bot.global_commands_get( [ & ]( const dpp::confirmation_callback_t &callback )
-                             { print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";} );
+                             { /*print_map( std::get< dpp::slashcommand_map >( callback.value ) ); if(callback.is_error()) std::cout << "sus";0*/} );
         //bot.global_command_delete(880716369656696873);
 
         bot.current_user_get_guilds( [ & ]( const dpp::confirmation_callback_t &callback )
@@ -64,7 +64,7 @@ int main()
             std::printf( "> Guild Count: %u\n", gsize );
             for ( const auto &[ guild_snowflake, guild ] : guilds )
             {
-                std::printf( "> Guild Name: %s\n", guild.name.c_str() );
+                //std::printf( "> Guild Name: %s\n", guild.name.c_str() );
             }
 
         } );
@@ -78,28 +78,28 @@ int main()
     bot.on_interaction_create([&bot](const dpp::interaction_create_t & event) {
         if (event.command.type == dpp::it_application_command) {
             dpp::command_interaction cmd_data = std::get<dpp::command_interaction>(event.command.data);
-            checkConfigs(event);
-            checkConfig(std::to_string(event.command.usr.id));
+            OB_CONF::checkConfigs(event);
+            OB_CONF::checkConfig(std::to_string(event.command.usr.id));
 
-            if(cmd_data.name == "bounce") bounce_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "info") info_cmd::execute(event, cmd_data, &bot);
-            if(cmd_data.name == "ping") ping_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "user-config") user_conf_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "guild-config") guild_conf_cmd::execute(event, cmd_data);
-            if(cmd_data.name == "leveling") leveling_cmd::execute(event, cmd_data);
+            if(cmd_data.name == "bounce") _bounce_execute(event, cmd_data);
+            if(cmd_data.name == "info") _info_execute(event, cmd_data, &bot);
+            if(cmd_data.name == "ping") _ping_execute(event, cmd_data);
+            if(cmd_data.name == "user-config") _user_conf_execute(event, cmd_data);
+            if(cmd_data.name == "guild-config") _guild_conf_execute(event, cmd_data);
+            if(cmd_data.name == "leveling") _leveling_execute(event, cmd_data);
         
         }
     });
 
     bot.on_message_create([&bot](const dpp::message_create_t & event) {
         //int integer = event.msg->member.user_id;
-        checkConfig(to_string(event.msg->member.user_id));
+        OB_CONF::checkConfig(to_string(event.msg->member.user_id));
 
         std::string id = std::to_string(event.msg->guild_id);  
         std::string id2 = std::to_string(event.msg->member.user_id);
 
-        if(getConf(id)["leveling"]["enabled"] && getConf(id2)["leveling"]["enabled"]) {
-            json z = getConf(id2);
+        if(OB_CONF::getConf(id)["leveling"]["enabled"] && OB_CONF::getConf(id2)["leveling"]["enabled"]) {
+            json z = OB_CONF::getConf(id2);
             int zint = z["leveling"]["xp"];
             int vint = z["leveling"]["level"];
             z["leveling"]["xp"] = zint + 1;
