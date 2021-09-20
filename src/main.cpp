@@ -57,6 +57,7 @@ int main()
 
             for (size_t i = 0; i < missing.size(); i++)
             {
+                cout << missing[i].name << "\n";
                 bot.global_command_create(missing[i]);
             }
             
@@ -86,10 +87,10 @@ int main()
             dpp::command_interaction cmd_data = std::get<dpp::command_interaction>(event.command.data);
             OB_CONF::checkConfigs(event);
             OB_CONF::checkConfig(std::to_string(event.command.usr.id));
-
+            
             if(cmd_data.name == "bounce") _bounce_execute(event, cmd_data);
             if(cmd_data.name == "info") _info_execute(event, cmd_data, &bot);
-            if(cmd_data.name == "ping") _ping_execute(event, cmd_data);
+            if(cmd_data.name == "ping") _ping_execute(event, cmd_data, &bot);
             if(cmd_data.name == "user-config") _user_conf_execute(event, cmd_data);
             if(cmd_data.name == "guild-config") _guild_conf_execute(event, cmd_data);
             if(cmd_data.name == "leveling") _leveling_execute(event, cmd_data);
