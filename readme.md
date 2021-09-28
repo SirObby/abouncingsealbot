@@ -35,5 +35,8 @@ cmake --build build
 **Q:** Is this a good bot?\
 **A:** I think you already know the answer, yes.
 
-**Q.** Wha.. How?
+**Q.** Wha.. How?\
 **A.** Wha how what? The bot works as intended idk what u mean, you saying how this works? It works by working bro **it just works** as Todd Howard would put it.
+
+**Q.** How do I update the D++ version on the bot?\
+**A.** Run `git submodule foreach git pull origin master` from the root directory of the project.
