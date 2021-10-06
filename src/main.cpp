@@ -12,6 +12,7 @@
 #include "configs.hpp"
 #include "versions.hpp"
 #include "commandhandler.hpp"
+#include "utils.hpp"
 #include "cmds/bounce.hpp"
 #include "cmds/info.hpp"
 #include "cmds/ping.hpp"
@@ -88,12 +89,40 @@ int main()
             OB_CONF::checkConfigs(event);
             OB_CONF::checkConfig(std::to_string(event.command.usr.id));
             
-            if(cmd_data.name == "bounce") _bounce_execute(event, cmd_data);
+            vector<string> cmds = {"bounce", "info", "ping", "user-config", "guild-config", "leveling"};
+
+            //int x = getIndex(cmds, cmd_data.name);
+
+            switch (getIndex(cmds, cmd_data.name))
+            {
+            case 0:
+                _bounce_execute(event, cmd_data);
+                break;
+            case 1:
+                _info_execute(event, cmd_data, &bot);
+                break;
+            case 2:
+                _ping_execute(event, cmd_data, &bot);
+                break;
+            case 3:
+                _user_conf_execute(event, cmd_data);
+                break;
+            case 4:
+                _guild_conf_execute(event, cmd_data);
+                break;
+            case 5:
+                _leveling_execute(event, cmd_data);
+                break;
+            default:
+                break;
+            }
+
+            /*if(cmd_data.name == "bounce") _bounce_execute(event, cmd_data);
             if(cmd_data.name == "info") _info_execute(event, cmd_data, &bot);
             if(cmd_data.name == "ping") _ping_execute(event, cmd_data, &bot);
             if(cmd_data.name == "user-config") _user_conf_execute(event, cmd_data);
             if(cmd_data.name == "guild-config") _guild_conf_execute(event, cmd_data);
-            if(cmd_data.name == "leveling") _leveling_execute(event, cmd_data);
+            if(cmd_data.name == "leveling") _leveling_execute(event, cmd_data);*/
         
         }
     });
