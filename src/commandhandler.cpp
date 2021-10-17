@@ -57,20 +57,21 @@ std::vector<dpp::slashcommand> getMissingCommands(dpp::slashcommand_map map)
     cmds.push_back(userconfcmd);
     cmds.push_back(levelingcmd);
 
-    int mi = 0;
-    for (const auto &[slashcommand_snowflake, command] : map)
+    for (size_t i = 0; i < cmds.size(); i++)
     {
-        mi++;
         bool found = false;
-        for (size_t i = 0; i < cmds.size(); i++)
-        {
+
+        int mi = 0;
+        for (const auto &[slashcommand_snowflake, command] : map) {
+
             if(command.name == cmds[i].name) {
                 found = true;
             }
+
         }
-        
+
         if(!found) {
-            missingcmds.push_back(cmds[mi]);
+            missingcmds.push_back(cmds[i]);
         }
     }
 
