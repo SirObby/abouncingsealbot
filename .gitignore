@@ -1,4 +1,4 @@
 /build/
 /src/configs/*.json
-/src/discord-bot
+/src/bot
 /src/config.json

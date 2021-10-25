@@ -4,5 +4,5 @@ cd build
 cmake ..
 cd ..
 cmake --build build
-cp ./build/discord-bot ./src/discord-bot
-echo Moved: ./build/discord-bot ./src/discord-bot
+cp ./build/bot ./src/bot
+echo Moved: ./build/bot ./src/bot

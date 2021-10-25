@@ -3,7 +3,7 @@
 # minimum CMake version required
 cmake_minimum_required(VERSION 3.15)
 # Project name, version and description
-project(discord-bot VERSION 1.0 DESCRIPTION "A discord bot")
+project(bot VERSION 1.0 DESCRIPTION "A discord bot")
 
 if(UNIX AND NOT APPLE) # linux
 	set(CMAKE_THREAD_LIBS_INIT "-lpthread")
