@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <dpp/fmt/format.h>
+#include <fmt/format.h>
 
 /**
  * @brief Sir Obsidian's new namespace! :O 
