@@ -1,4 +1,4 @@
 /build/
 /src/configs/*.json
-/src/bot
-/src/config.json
+bot
+config.json
