@@ -30,6 +30,8 @@ add_executable(${PROJECT_NAME} ${source_list})
 # Linking libraries
 target_link_libraries(${PROJECT_NAME}
     dpp
+    pqxx
+    pq
     #spdlog # if you need a logger. Don't forget to clone sources
            # in the `libs/` directory
 )

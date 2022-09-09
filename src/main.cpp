@@ -1,5 +1,7 @@
 #include "appcommand.h"
 #include "commands/info.h"
+#include "commands/bounce.h"
+#include "commands/ping.h"
 #include <cstdint>
 #include <dpp/dpp.h>
 #include <fmt/format.h>
@@ -7,10 +9,13 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <pqxx/pqxx>
 
-void print_map(const dpp::slashcommand_map &m) {
+void print_map(const dpp::slashcommand_map &m)
+{
 
-  for (const auto &[key, value] : m) {
+  for (const auto &[key, value] : m)
+  {
     std::cout << key << " = " << value.name.c_str() << "; ";
     std::cout << "\n";
   }
@@ -18,7 +23,29 @@ void print_map(const dpp::slashcommand_map &m) {
   // std::cout << "\n";
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
+
+  try
+  {
+    pqxx::connection C("dbname = testdb user = postgres password = cohondob \
+      hostaddr = 127.0.0.1 port = 5432");
+
+    if (C.is_open())
+    {
+      std::cout << "Opened database successfully: " << C.dbname() << std::endl;
+    }
+    else
+    {
+      std::cout << "Can't open database" << std::endl;
+      return 1;
+    }
+    //C.disconnect(); this doesn't exist.
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
 
   nlohmann::json config;
   std::ifstream configfile("config.json");
@@ -31,7 +58,8 @@ int main(int argc, char **argv) {
   bot.on_log(dpp::utility::cout_logger());
 
   /* Executes on ready. */
-  bot.on_ready([&bot](const dpp::ready_t &event) {
+  bot.on_ready([&bot](const dpp::ready_t &event)
+               {
     if (dpp::run_once<struct register_bot_commands>()) {
 
       // list all comman
@@ -42,6 +70,8 @@ int main(int argc, char **argv) {
           });
 
       dpp::slashcommand info("info", "Get bot information.", bot.me.id);
+      dpp::slashcommand bounce("bounce", "Seals will start bouncing.", bot.me.id);
+      dpp::slashcommand ping("ping", "Get the bot's latency.", bot.me.id);
 
       // Define a slash command.
       dpp::slashcommand image("image", "Send a specific image.", bot.me.id);
@@ -70,19 +100,40 @@ int main(int argc, char **argv) {
               std::cout << callback.http_info.body << "\n";
             }
           });
-    }
-  });
+      bot.global_command_create(
+          bounce, [&](const dpp::confirmation_callback_t &callback) {
+            if (callback.is_error()) {
+              std::cout << callback.http_info.body << "\n";
+            }
+          });
+        bot.global_command_create(
+          ping, [&](const dpp::confirmation_callback_t &callback) {
+            if (callback.is_error()) {
+              std::cout << callback.http_info.body << "\n";
+            }
+          });
+    } });
 
   /* Use the on_slashcommand event to look for commands */
-  bot.on_slashcommand([&bot](const dpp::slashcommand_t &event) {
-    dpp::command_interaction cmd_data =
-        event.command
-            .get_command_interaction(); // This can be done from the command.
+  bot.on_slashcommand([&bot](const dpp::slashcommand_t &event)
+                      {
+                        dpp::command_interaction cmd_data =
+                            event.command
+                                .get_command_interaction(); // This can be done from the command.
 
-    if (cmd_data.name == "info") {
-      info_command(event, &bot);
-    }
-  });
+                        if (cmd_data.name == "info")
+                        {
+                          info_command(event, &bot);
+                        }
+
+                        if (cmd_data.name == "bounce")
+                        {
+                          bounce_command(event, &bot);
+                        }
+                        if (cmd_data.name == "ping")
+                        {
+                          ping_command(event, &bot);
+                        } });
 
   bot.start(dpp::st_wait);
 
