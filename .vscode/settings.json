@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.spwn": "spwn",
+        "NEOMakefile": "makefile",
+        "*.hbuild": "c",
         "xstring": "cpp",
         "sstream": "cpp",
         "vector": "cpp",
@@ -81,7 +83,22 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "cwctype": "cpp",
+        "hash_map": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "codecvt": "cpp",
+        "coroutine": "cpp",
+        "unordered_set": "cpp",
+        "memory_resource": "cpp",
+        "string_view": "cpp",
+        "future": "cpp",
+        "numbers": "cpp",
+        "ranges": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "cinttypes": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

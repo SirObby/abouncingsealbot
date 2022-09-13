@@ -2,6 +2,7 @@
 #include "commands/info.h"
 #include "commands/bounce.h"
 #include "commands/ping.h"
+#include "commands/chess.h"
 #include <cstdint>
 #include <dpp/dpp.h>
 #include <fmt/format.h>
@@ -26,7 +27,7 @@ void print_map(const dpp::slashcommand_map &m)
 int main(int argc, char **argv)
 {
 
-  try
+  /*try
   {
     pqxx::connection C("dbname = testdb user = postgres password = cohondob \
       hostaddr = 127.0.0.1 port = 5432");
@@ -40,12 +41,12 @@ int main(int argc, char **argv)
       std::cout << "Can't open database" << std::endl;
       return 1;
     }
-    //C.disconnect(); this doesn't exist.
+    // C.disconnect(); this doesn't exist.
   }
   catch (const std::exception &e)
   {
     std::cerr << e.what() << std::endl;
-  }
+  }*/
 
   nlohmann::json config;
   std::ifstream configfile("config.json");
@@ -72,6 +73,11 @@ int main(int argc, char **argv)
       dpp::slashcommand info("info", "Get bot information.", bot.me.id);
       dpp::slashcommand bounce("bounce", "Seals will start bouncing.", bot.me.id);
       dpp::slashcommand ping("ping", "Get the bot's latency.", bot.me.id);
+
+      dpp::slashcommand chess("chess", "Play a game of chess against another player.", bot.me.id);
+      chess.add_option(
+        dpp::command_option(dpp::co_user, "user", "The user to play against.", true)
+      );
 
       // Define a slash command.
       dpp::slashcommand image("image", "Send a specific image.", bot.me.id);
@@ -106,8 +112,14 @@ int main(int argc, char **argv)
               std::cout << callback.http_info.body << "\n";
             }
           });
-        bot.global_command_create(
+      bot.global_command_create(
           ping, [&](const dpp::confirmation_callback_t &callback) {
+            if (callback.is_error()) {
+              std::cout << callback.http_info.body << "\n";
+            }
+          });
+      bot.global_command_create(
+          chess, [&](const dpp::confirmation_callback_t &callback) {
             if (callback.is_error()) {
               std::cout << callback.http_info.body << "\n";
             }
@@ -125,7 +137,6 @@ int main(int argc, char **argv)
                         {
                           info_command(event, &bot);
                         }
-
                         if (cmd_data.name == "bounce")
                         {
                           bounce_command(event, &bot);
@@ -133,7 +144,12 @@ int main(int argc, char **argv)
                         if (cmd_data.name == "ping")
                         {
                           ping_command(event, &bot);
-                        } });
+                        }
+                        if (cmd_data.name == "chess")
+                        {
+                          chess_command(event, &bot);
+                        } 
+                        });
 
   bot.start(dpp::st_wait);
 
